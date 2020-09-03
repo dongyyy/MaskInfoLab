@@ -1,20 +1,7 @@
 package com.dongy.example
 
-import android.util.Log
-import com.dongy.example.model.Store
-import com.dongy.example.model.StoreInfo
-import com.dongy.example.repository.MaskService
-import com.google.gson.GsonBuilder
-import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.schedulers.Schedulers
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-
-
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -44,5 +31,4 @@ class ExampleUnitTest {
 //        assertEquals(222, storeInfo?.count)
 //        assertEquals(222, storeInfo?.stores?.size)
     }
-
 }

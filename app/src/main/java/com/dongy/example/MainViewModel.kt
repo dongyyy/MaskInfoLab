@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainViewModel : ViewModel() {
     private val TAG = MainViewModel::class.simpleName
 
-    var storeListLiveData : MutableLiveData<List<Store>> = MutableLiveData()
+    var storeListLiveData: MutableLiveData<List<Store>> = MutableLiveData()
 
     private val gson =
         GsonBuilder()
@@ -31,7 +31,6 @@ class MainViewModel : ViewModel() {
         .build()
 
     private val service = retrofit.create(MaskService::class.java)
-
 
 // live data
 //    fun fetchStoreInfo() : MutableLiveData<List<Store>> {
@@ -56,9 +55,8 @@ class MainViewModel : ViewModel() {
 //        return storeListLiveData
 //    }
 
-
 // Rx
-    fun fetchStoreInfo() : Single<List<Store>> {
+    fun fetchStoreInfo(): Single<List<Store>> {
         return service.fetchStoreInfo()
             .map {
                 it.asJsonObject.getAsJsonArray("stores")
@@ -70,5 +68,4 @@ class MainViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { e -> e.printStackTrace() }
     }
-
 }
