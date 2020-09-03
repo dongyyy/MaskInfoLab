@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dongy.example.model.Store
 import com.dongy.example.repository.MaskService
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -20,6 +21,7 @@ class MainViewModel : ViewModel() {
     private val gson =
         GsonBuilder()
             .setLenient()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
 
     private val retrofit = Retrofit.Builder()
