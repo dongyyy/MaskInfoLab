@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.dongy.example.model.Store
 import com.dongy.example.repository.MaskService
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
@@ -15,11 +16,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 class MainViewModel : ViewModel() {
     private val TAG = MainViewModel::class.simpleName
 
-    var storeListLiveData : MutableLiveData<List<Store>> = MutableLiveData()
+    var storeListLiveData: MutableLiveData<List<Store>> = MutableLiveData()
 
     private val gson =
         GsonBuilder()
             .setLenient()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .create()
 
     private val retrofit = Retrofit.Builder()
@@ -29,7 +31,6 @@ class MainViewModel : ViewModel() {
         .build()
 
     private val service = retrofit.create(MaskService::class.java)
-
 
 // live data
 //    fun fetchStoreInfo() : MutableLiveData<List<Store>> {
@@ -54,9 +55,8 @@ class MainViewModel : ViewModel() {
 //        return storeListLiveData
 //    }
 
-
 // Rx
-    fun fetchStoreInfo() : Single<List<Store>> {
+    fun fetchStoreInfo(): Single<List<Store>> {
         return service.fetchStoreInfo()
             .map {
                 it.asJsonObject.getAsJsonArray("stores")
@@ -68,5 +68,4 @@ class MainViewModel : ViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError { e -> e.printStackTrace() }
     }
-
 }
